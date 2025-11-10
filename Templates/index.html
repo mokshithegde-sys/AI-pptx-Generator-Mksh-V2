@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI PPTX Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #9bd3f7, #d8f0ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #004b7f;
+    }
+    input, button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 10px;
+    }
+    input {
+      width: 300px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007acc;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005a99;
+    }
+    #loading {
+      display: none;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #004b7f;
+    }
+    #downloadBtn {
+      display: none;
+      margin-top: 20px;
+      background-color: #00b359;
+    }
+    #downloadBtn:hover {
+      background-color: #008f47;
+    }
+  </style>
+</head>
+<body>
+  <h1>AI PPTX Generator</h1>
+  <input type="text" id="topic" placeholder="Enter your topic..." />
+  <button id="generateBtn">Generate Presentation</button>
+
+  <div id="loading">Generating your presentation... Please wait ⏳</div>
+  <button id="downloadBtn">Download Presentation</button>
+
+  <script>
+    const generateBtn = document.getElementById('generateBtn');
+    const loading = document.getElementById('loading');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    generateBtn.addEventListener('click', async () => {
+      const topic = document.getElementById('topic').value.trim();
+      if (!topic) {
+        alert('Please enter a topic!');
+        return;
+      }
+
+      loading.style.display = 'block';
+      generateBtn.disabled = true;
+      downloadBtn.style.display = 'none';
+
+      try {
+        const response = await fetch('/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ topic })
+        });
+
+        if (!response.ok) throw new Error('Failed to generate presentation');
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${topic.replace(/\s+/g, '_')}_AI_Presentation.pptx`;
+        link.click();
+
+        downloadBtn.style.display = 'block';
+        downloadBtn.onclick = () => link.click();
+      } catch (err) {
+        alert('Error generating presentation: ' + err.message);
+      } finally {
+        loading.style.display = 'none';
+        generateBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

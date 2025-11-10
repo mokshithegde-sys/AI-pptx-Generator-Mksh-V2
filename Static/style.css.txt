@@ -1,0 +1,36 @@
+body {
+  background: #cce5ff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #aaa;
+  width: 400px;
+  margin: auto;
+  padding: 30px;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.note {
+  color: #555;
+  margin-top: 10px;
+}
