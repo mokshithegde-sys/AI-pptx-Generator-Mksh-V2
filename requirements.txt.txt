@@ -1,6 +1,0 @@
-flask
-google-generativeai
-python-pptx
-pillow
-requests
-gunicorn
