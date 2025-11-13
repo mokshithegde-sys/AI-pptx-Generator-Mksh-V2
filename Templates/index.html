@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI PPTX Generator</title>
   <style>
     body {
@@ -43,14 +43,6 @@
       font-weight: bold;
       color: #004b7f;
     }
-    #downloadBtn {
-      display: none;
-      margin-top: 20px;
-      background-color: #00b359;
-    }
-    #downloadBtn:hover {
-      background-color: #008f47;
-    }
   </style>
 </head>
 <body>
@@ -59,12 +51,10 @@
   <button id="generateBtn">Generate Presentation</button>
 
   <div id="loading">Generating your presentation... Please wait ⏳</div>
-  <button id="downloadBtn">Download Presentation</button>
 
   <script>
     const generateBtn = document.getElementById('generateBtn');
     const loading = document.getElementById('loading');
-    const downloadBtn = document.getElementById('downloadBtn');
 
     generateBtn.addEventListener('click', async () => {
       const topic = document.getElementById('topic').value.trim();
@@ -75,7 +65,6 @@
 
       loading.style.display = 'block';
       generateBtn.disabled = true;
-      downloadBtn.style.display = 'none';
 
       try {
         const response = await fetch('/generate', {
@@ -92,9 +81,6 @@
         link.href = url;
         link.download = `${topic.replace(/\s+/g, '_')}_AI_Presentation.pptx`;
         link.click();
-
-        downloadBtn.style.display = 'block';
-        downloadBtn.onclick = () => link.click();
       } catch (err) {
         alert('Error generating presentation: ' + err.message);
       } finally {

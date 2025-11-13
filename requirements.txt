@@ -1,7 +1,5 @@
-flask
+Flask
+waitress
 google-generativeai
 python-pptx
-pillow
 requests
-gunicorn
-waitress
